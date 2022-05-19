@@ -13,7 +13,7 @@ export default function HomePage() {
 
   useEffect(() => {
     dispatch(fetchSpaces());
-  }, []);
+  }, [dispatch]);
 
   return (
     <main>
