@@ -1,0 +1,26 @@
+main ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+main li {
+  padding: 2rem;
+  max-width: 100%;
+}
+
+main li a {
+  background-color: black;
+  padding: 1rem;
+  text-decoration: none;
+  color: white;
+  display: block;
+  max-width: fit-content;
+}
+
+main li + li {
+  margin-top: 1rem;
+}
+
+main li p {
+  margin: 1rem 0;
+}
