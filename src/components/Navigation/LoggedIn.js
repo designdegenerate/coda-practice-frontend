@@ -4,13 +4,19 @@ import { logOut } from "../../store/user/slice";
 import Button from "react-bootstrap/Button";
 import { selectUser } from "../../store/user/selectors";
 import Nav from "react-bootstrap/Nav";
+import { Link } from "react-router-dom";
 
 export default function LoggedIn() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   return (
     <>
-      <Nav.Item style={{ padding: ".5rem 1rem" }}>{user?.email}</Nav.Item>
+      <Nav.Item style={{ padding: ".5rem 1rem" }}>
+        {user?.email}
+      </Nav.Item>
+      <Nav.Item style={{ padding: ".5rem 1rem" }}>
+        <Link to="/me">  MySpace</Link>
+      </Nav.Item>
       <Button onClick={() => dispatch(logOut())}>Logout</Button>
     </>
   );

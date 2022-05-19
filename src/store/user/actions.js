@@ -14,7 +14,6 @@ export const signUp = (name, email, password) => {
         email,
         password,
       });
-      console.log(response);
 
       dispatch(
         loginSuccess({ token: response.data.token, user: response.data.user, space: response.data.space})
@@ -57,8 +56,9 @@ export const login = (email, password) => {
       });
 
       dispatch(
-        loginSuccess({ token: response.data.token, user: response.data.user })
+        loginSuccess({ token: response.data.token, user: response.data.user, space: response.data.space })
       );
+
       dispatch(showMessageWithTimeout("success", false, "welcome back!", 1500));
       dispatch(appDoneLoading());
     } catch (error) {

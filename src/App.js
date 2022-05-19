@@ -14,12 +14,14 @@ import { getUserWithStoredToken } from "./store/user/actions";
 import HeroBanner from "./components/HeroBanner";
 import HomePage from "./pages/HomePage";
 import SomeSpace from "./pages/SomeSpace";
+import MePage from "./pages/MePage";
 
 const Other = () => (
   <HeroBanner>
     <h1>Other</h1>
   </HeroBanner>
 );
+
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +39,7 @@ function App() {
         <Route exact path="/" element={<HomePage />} />
         <Route path="/spaces/:id" element={<SomeSpace />} />
         <Route path="/other" element={<Other />} />
+        <Route path="/me" element={<MePage/>} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
       </Routes>
