@@ -17,7 +17,6 @@ export default function SomeSpace() {
   const sortByDate = (a, b) => {
     const dateA = new Date(a.createdAt);
     const dateB = new Date(b.createdAt);
-    console.log(dateA, dateB)
     return dateB > dateA;
   };
 
