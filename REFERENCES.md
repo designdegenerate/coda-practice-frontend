@@ -1,0 +1,1 @@
+[1] https://stackoverflow.com/questions/492994/compare-two-dates-with-javascript

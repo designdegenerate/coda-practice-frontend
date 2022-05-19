@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import reactDom from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import HeroBanner from "../components/HeroBanner";

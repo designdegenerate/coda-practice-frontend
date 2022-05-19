@@ -1,3 +1,7 @@
+/* 
+ * Homepage
+ */
+
 main ul {
   list-style-type: none;
   padding: 0;
@@ -23,4 +27,31 @@ main li + li {
 
 main li p {
   margin: 1rem 0;
+}
+
+/* 
+ * Spaces Page
+ */
+
+.some-space-header {
+  padding: 4rem;
+}
+
+ul.stories-list {
+  margin: 0 auto;
+  display: block;
+
+}
+
+.stories-list img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 500px;
+  max-height: 400px;
+  margin-bottom: 1rem;
+}
+
+.stories-list {
+  max-width: 600px;
 }

@@ -4,11 +4,11 @@ import { setSomeSpaceLoad, setSomeSpaceData, finishSomeSpaceLoad } from "./slice
 
 //TODO: CHANGE ALL
 
-export const fetchSomeSpace = () => {
+export const fetchSomeSpace = (id) => {
   return async (dispatch, getState) => {
     dispatch(setSomeSpaceLoad());
     try {
-      const spacesData = await axios.get(`${apiUrl}/spaces/`);
+      const spacesData = await axios.get(`${apiUrl}/spaces/${id}`);
       dispatch(setSomeSpaceData(spacesData.data));
       dispatch(finishSomeSpaceLoad());
     } catch (error) {
