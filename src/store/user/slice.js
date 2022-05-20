@@ -26,9 +26,15 @@ export const userSlice = createSlice({
       state.profile = action.payload.profile;
       state.space = action.payload.space;
     },
+    deleteUserStory: (state, action) => {
+      const id = action.payload;
+      state.space.stories = state.space.stories.filter(
+        (story) => story.id !== id
+      );
+    }
   },
 });
 
-export const { loginSuccess, logOut, tokenStillValid } = userSlice.actions;
+export const { deleteUserStory, loginSuccess, logOut, tokenStillValid } = userSlice.actions;
 
 export default userSlice.reducer;

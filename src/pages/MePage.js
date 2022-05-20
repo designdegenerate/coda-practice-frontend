@@ -1,12 +1,12 @@
 import axios from "axios";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { apiUrl } from "../config/constants";
-import { selectToken, selectUserSpace } from "../store/user/selectors";
+import { deleteUserStory } from "../store/user/slice";
+import { selectUserSpace } from "../store/user/selectors";
 
 export default function MePage() {
+  const dispatch = useDispatch();
   const userSpace = useSelector(selectUserSpace);
-  const hasToken = useSelector(selectToken);
 
   //See Reference [1]
   const sortByDate = (a, b) => {
@@ -15,20 +15,18 @@ export default function MePage() {
     return dateB > dateA;
   };
 
-  //Have useEfffect here that watches the redux store
   const deleteStory = async (storyId) => {
     try {
-      const deletedStory = await axios.delete(
+      await axios.delete(
         `${apiUrl}/stories/${storyId}`
       );
-      console.log(deletedStory.data);
+
+      dispatch(deleteUserStory(storyId));
+
     } catch (error) {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-  }, []);
 
   return (
     <div>
