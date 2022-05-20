@@ -3,7 +3,7 @@ import axios from "axios";
 import { selectToken } from "./selectors";
 import { appLoading, appDoneLoading, setMessage } from "../appState/slice";
 import { showMessageWithTimeout } from "../appState/actions";
-import { loginSuccess, logOut, tokenStillValid } from "./slice";
+import { actuallyCreateStory, loginSuccess, logOut, tokenStillValid } from "./slice";
 
 export const signUp = (name, email, password) => {
   return async (dispatch, getState) => {
@@ -118,3 +118,23 @@ export const getUserWithStoredToken = () => {
     }
   };
 };
+
+export const createStory = (story) => {
+  return async (dispatch, getState) => {
+    const token = selectToken(getState());
+
+    try {
+      const response = await axios.post(`${apiUrl}/stories`, {
+        name: story.name,
+        content: story.content,
+        imageURL: story.imageURL,
+        spaceId: story.spaceId
+      }, {headers: { Authorization: `Bearer ${token}`}});
+
+      dispatch(actuallyCreateStory(response));
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}

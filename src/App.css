@@ -60,3 +60,10 @@ ul.stories-list {
 .stories-list {
   max-width: 600px;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+}

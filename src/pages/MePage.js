@@ -2,11 +2,16 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { apiUrl } from "../config/constants";
 import { deleteUserStory } from "../store/user/slice";
+import { createStory } from "../store/user/actions";
 import { selectUserSpace } from "../store/user/selectors";
+import { useState } from "react";
 
 export default function MePage() {
   const dispatch = useDispatch();
   const userSpace = useSelector(selectUserSpace);
+  const [getName, setName] = useState("");
+  const [getContent, setContent] = useState("");
+  const [getImageURL, setImageURL] = useState("");
 
   //See Reference [1]
   const sortByDate = (a, b) => {
@@ -17,12 +22,9 @@ export default function MePage() {
 
   const deleteStory = async (storyId) => {
     try {
-      await axios.delete(
-        `${apiUrl}/stories/${storyId}`
-      );
+      await axios.delete(`${apiUrl}/stories/${storyId}`);
 
       dispatch(deleteUserStory(storyId));
-
     } catch (error) {
       console.log(error);
     }
@@ -30,24 +32,63 @@ export default function MePage() {
 
   return (
     <div>
-      {userSpace? (
+      {userSpace ? (
         <div
-            className="some-space-header"
-            style={{
-              color: userSpace?.color ? userSpace.color : "#000",
-              backgroundColor: userSpace?.backgroundColor
-                ? userSpace.backgroundColor
-                : "",
-            }}
-          >
-            <h1>{userSpace?.title}</h1>
-            <p>{userSpace?.description}</p>
-          </div>
-      ) : "please login to view your profile"}
+          className="some-space-header"
+          style={{
+            color: userSpace?.color ? userSpace.color : "#000",
+            backgroundColor: userSpace?.backgroundColor
+              ? userSpace.backgroundColor
+              : "",
+          }}
+        >
+          <h1>{userSpace?.title}</h1>
+          <p>{userSpace?.description}</p>
+        </div>
+      ) : (
+        "please login to view your profile"
+      )}
+      {userSpace ? (
+        <details>
+          <summary>NEW STORY BRUH</summary>
+          <form onSubmit={ (event) => {
+          event.preventDefault();
+          dispatch(createStory({
+            name: getName,
+            content: getContent,
+            imageURL: getImageURL,
+            spaceId: userSpace.id
+          }))
+        }
+        }>
+          <label>name your story bruh</label>
+          <input
+            value={getName}
+            onChange={(event) => setName(event.target.value)}
+            type="text"
+          ></input>
+          <label>wots your story bruh</label>
+          <input
+            value={getContent}
+            type="text"
+            onChange={(event) => setContent(event.target.value)}
+          ></input>
+          <label>show your story bruh (imageurl)</label>
+          <input
+            value={getImageURL}
+            type="text"
+            onChange={(event) => setImageURL(event.target.value)}
+          ></input>
+          <img src={getImageURL} alt=""></img>
+          <button type="submit">Post your story bruh</button>
+        </form>
+        </details>
+      ) : (
+        <p></p>
+      )}
 
       {userSpace?.stories ? (
         <div>
-          
           <ul className="stories-list">
             {[...userSpace.stories].sort(sortByDate).map((story) => {
               return (
@@ -60,12 +101,11 @@ export default function MePage() {
                       deleteStory(story.id);
                     }}
                   >
-                    Delete Story
+                    Didn't happen bruh
                   </button>
                 </li>
               );
-            })
-            }
+            })}
           </ul>
         </div>
       ) : (

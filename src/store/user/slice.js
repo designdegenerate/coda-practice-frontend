@@ -31,10 +31,14 @@ export const userSlice = createSlice({
       state.space.stories = state.space.stories.filter(
         (story) => story.id !== id
       );
+    },
+    actuallyCreateStory: (state, action) => {
+      const newStory = action.payload.data;
+      state.space = {...state.space, stories: [...state.space.stories, newStory] };
     }
   },
 });
 
-export const { deleteUserStory, loginSuccess, logOut, tokenStillValid } = userSlice.actions;
+export const { actuallyCreateStory, deleteUserStory, loginSuccess, logOut, tokenStillValid } = userSlice.actions;
 
 export default userSlice.reducer;
