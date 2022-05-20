@@ -29,6 +29,11 @@ main li p {
   margin: 1rem 0;
 }
 
+main ul li button {
+  margin: 2rem 0;
+  display: block;
+}
+
 /* 
  * Spaces Page
  */

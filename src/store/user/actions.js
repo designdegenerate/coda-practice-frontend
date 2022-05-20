@@ -103,7 +103,8 @@ export const getUserWithStoredToken = () => {
       });
 
       // token is still valid
-      dispatch(tokenStillValid({ user: response.data }));
+      console.log(response);
+      dispatch(tokenStillValid({ profile: response.data.profile, space: response.data.space }));
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
@@ -118,3 +119,9 @@ export const getUserWithStoredToken = () => {
     }
   };
 };
+
+export const deleteUserStory = (spacesId, userId) => {
+  return async (dispatch, getState) => {
+
+  }
+}

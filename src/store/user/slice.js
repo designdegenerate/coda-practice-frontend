@@ -23,7 +23,7 @@ export const userSlice = createSlice({
       state.space = null;
     },
     tokenStillValid: (state, action) => {
-      state.profile = action.payload.user;
+      state.profile = action.payload.profile;
       state.space = action.payload.space;
     },
   },

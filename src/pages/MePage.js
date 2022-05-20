@@ -1,11 +1,11 @@
+import axios from "axios";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import {
-  selectToken,
-  selectUser,
-} from "../store/user/selectors";
+import { apiUrl } from "../config/constants";
+import { selectToken, selectUserSpace } from "../store/user/selectors";
 
 export default function MePage() {
-  const user = useSelector(selectUser);
+  const userSpace = useSelector(selectUserSpace);
   const hasToken = useSelector(selectToken);
 
   //See Reference [1]
@@ -15,36 +15,63 @@ export default function MePage() {
     return dateB > dateA;
   };
 
+  //Have useEfffect here that watches the redux store
+  const deleteStory = async (storyId) => {
+    try {
+      const deletedStory = await axios.delete(
+        `${apiUrl}/stories/${storyId}`
+      );
+      console.log(deletedStory.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+  }, []);
+
   return (
     <div>
-      {hasToken && user !== null ? (
-        <div>
-          <div
+      {userSpace? (
+        <div
             className="some-space-header"
             style={{
-              color: user.space.color ? user.space.color : "#000",
-              backgroundColor: user.space.backgroundColor 
-                ? user.space.backgroundColor 
+              color: userSpace?.color ? userSpace.color : "#000",
+              backgroundColor: userSpace?.backgroundColor
+                ? userSpace.backgroundColor
                 : "",
             }}
           >
-            <h1>{user.space.title}</h1>
-            <p>{user.space.description}</p>
+            <h1>{userSpace?.title}</h1>
+            <p>{userSpace?.description}</p>
           </div>
+      ) : "please login to view your profile"}
+
+      {userSpace?.stories ? (
+        <div>
+          
           <ul className="stories-list">
-            {[...user.space.stories].sort(sortByDate).map((story) => {
+            {[...userSpace.stories].sort(sortByDate).map((story) => {
               return (
                 <li key={story.id}>
                   <img alt="" src={story.imageURL}></img>
                   <h2>{story.name}</h2>
                   <p>{story.content}</p>
+                  <button
+                    onClick={() => {
+                      deleteStory(story.id);
+                    }}
+                  >
+                    Delete Story
+                  </button>
                 </li>
               );
-            })}
+            })
+            }
           </ul>
         </div>
       ) : (
-        <p>Please login to view your profile</p>
+        <p></p>
       )}
     </div>
   );
