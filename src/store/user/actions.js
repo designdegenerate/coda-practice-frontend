@@ -132,6 +132,7 @@ export const createStory = (story) => {
       }, {headers: { Authorization: `Bearer ${token}`}});
 
       dispatch(actuallyCreateStory(response));
+      dispatch(showMessageWithTimeout("success", true, "Cool story bruh! It's live!!"));
 
     } catch (error) {
       console.log(error);
